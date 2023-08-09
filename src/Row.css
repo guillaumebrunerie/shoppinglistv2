@@ -38,7 +38,6 @@ li.isDragging {
 }
 
 li.isCompleted {
-	filter: brightness(${props => props.$isDragging ? (props.$isCompleted ? "0.9" : "1.7") : "1"});
 	background-color: var(--background);
 }
 
@@ -73,7 +72,7 @@ input.edit {
 	height: 1.6rem;
 	border-width: 1px;
 	border-radius: 0.1rem;
-	font-size: max(16px, 0.66em); // Needs to be at least 16px for iOS
+	font-size: max(16px, 0.66em); /* Needs to be at least 16px for iOS */
 	font-weight: inherit;
 	&:focus::placeholder {
 		color: var(--light-grey);

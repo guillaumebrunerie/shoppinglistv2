@@ -9,7 +9,7 @@ svg.addSubList {
 	stroke: var(--background);
 	stroke-width: 5px;
 	fill: var(--primary);
-	path {
+	& path {
 		stroke: var(--background);
 		stroke-width: 10px;
 		fill: none;

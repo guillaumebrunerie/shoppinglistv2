@@ -26,7 +26,7 @@ div.menuButton {
 	right: 10px;
 	z-index: 1;
 	cursor: pointer;
-	-webkit-tap-highlight-color: transparent; // Disable blue highlight on tap on Android
+	-webkit-tap-highlight-color: transparent; /* Disable blue highlight on tap on Android */
 }
 
 div.menu {
