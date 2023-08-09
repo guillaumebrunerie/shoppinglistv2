@@ -5,8 +5,15 @@ import classNames from "classnames";
 import "./Header.css";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
+import { type Id } from "../convex/_generated/dataModel";
 
-const Header = ({list, doClean}: {list: HalfList, doClean: () => void}) => {
+type List = {
+	_id: Id<"lists">,
+	isLoading: boolean,
+	name: string,
+};
+
+const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 	const {t, lang} = useTranslate();
 
 	const {_id: listId} = list;
@@ -63,7 +70,7 @@ const Header = ({list, doClean}: {list: HalfList, doClean: () => void}) => {
 
 	const handleBackToAllLists = () => {
 		localStorage.removeItem("lastList");
-		navigate("/", {replace: true});
+		// navigate("/", {replace: true});
 	}
 
 	const setLanguage = useSetLanguage();

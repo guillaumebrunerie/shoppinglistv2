@@ -26,7 +26,7 @@ const AddItem = ({listId}: {listId: Id<"lists">}) => {
 			const item = {
 				_id: itemId,
 				_creationTime: Date.now(),
-				completed: false,
+				isCompleted: false,
 				listId,
 				value,
 				isLoading: true,

@@ -8,17 +8,18 @@ import DeleteButton from "./Delete";
 import EditButton from "./Edit";
 import { api } from "../convex/_generated/api";
 import { useMutation } from "convex/react";
+import { DraggableProvided } from "@hello-pangea/dnd";
 
 type Item = {
 	_id: Id<"items">,
 	listId: Id<"lists">,
 	childListId?: Id<"lists">,
 	isCompleted: boolean,
-	value: string,
+	value?: string,
 	isLoading: boolean,
 }
 
-const Row = ({item, provided, isDragging}: {item: Item, provided: any, isDragging: boolean}) => {
+const Row = ({item, provided, isDragging}: {item: Item, provided: DraggableProvided, isDragging: boolean}) => {
 	// const navigate = useNavigate();
 
 	// // Toggling checked state
