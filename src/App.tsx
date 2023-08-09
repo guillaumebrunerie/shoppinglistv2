@@ -9,7 +9,7 @@ import NoList from "./NoList";
 
 export const PageContext = createContext<{
 	listId: Id<"lists"> | null,
-	setListId: (listId: Id<"lists">) => void,
+	setListId: (listId: Id<"lists"> | null) => void,
 }>({
 	listId: null,
 	setListId: () => {},

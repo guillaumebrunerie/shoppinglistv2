@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Lang, flag, supportedLanguages, useSetLanguage, useTranslate } from "./translation";
 import classNames from "classnames";
 
@@ -6,6 +6,7 @@ import "./Header.css";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { type Id } from "../convex/_generated/dataModel";
+import { PageContext } from "./App";
 
 type List = {
 	_id: Id<"lists">,
@@ -68,8 +69,11 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 		doClean();
 	}
 
+	const {setListId} = useContext(PageContext);
+
 	const handleBackToAllLists = () => {
 		localStorage.removeItem("lastList");
+		setListId(null);
 		// navigate("/", {replace: true});
 	}
 

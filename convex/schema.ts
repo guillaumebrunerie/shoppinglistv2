@@ -7,6 +7,7 @@ export default defineSchema({
 		color: v.string(),
 		itemIds: v.array(v.id("items")),
 		parentId: v.optional(v.id("items")),
+		originalId: v.optional(v.string()),
 	}),
 	items: defineTable({
 		deletedAt: v.optional(v.number()),
@@ -14,5 +15,6 @@ export default defineSchema({
 		isCompleted: v.boolean(),
 		childListId: v.optional(v.id("lists")),
 		listId: v.id("lists"),
+		originalId: v.optional(v.string()),
 	}),
 });
