@@ -108,7 +108,7 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 							<span onClick={() => {}}>{t("recentlyDeleted")}</span>
 						</div>
 						<div className="menuItem">
-							<span onClick={handleCopyListId}>Copy list id</span>
+							<span onClick={handleCopyListId}>{t("copyListId")}</span>
 						</div>
 						<div className="flagMenuItem">
 							{supportedLanguages.map(thisLang => (

@@ -39,6 +39,11 @@ const translations = {
 		en: "My lists of lists",
 		ru: "TODO", // TODO
 	},
+	copyListId: {
+		fr: "Copier l’identifiant de liste",
+		en: "Copy list identifier",
+		ru: "TODO",
+	},
 	locale: {
 		fr: "fr-FR",
 		en: "en-US",
