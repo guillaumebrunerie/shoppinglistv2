@@ -3,21 +3,38 @@ import List from "./List";
 import './App.css'
 import { createContext, useState } from "react";
 import { type Id } from "../convex/_generated/dataModel";
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
+import NoList from "./NoList";
 
 export const PageContext = createContext<{
-	listId: Id<"lists">,
+	listId: Id<"lists"> | null,
 	setListId: (listId: Id<"lists">) => void,
 }>({
-	listId: "35wa7gb11k6q67a9dwsnppsg9hw58t8" as Id<"lists">,
+	listId: null,
 	setListId: () => {},
 });
 
+const ListPage = ({listId}: {listId: Id<"lists">}) => {
+	const list = useQuery(api.lists.get, {listId});
+
+	if (!list) {
+		return null;
+	}
+
+	return <List list={list}/>;
+}
+
+const getListId = () => {
+	return localStorage.getItem("lastList") as Id<"lists"> | null;
+}
+
 const App = () => {
-	const [listId, setListId] = useState<Id<"lists">>("35wa7gb11k6q67a9dwsnppsg9hw58t8" as Id<"lists">)
+	const [listId, setListId] = useState<Id<"lists"> | null>(getListId())
 
 	return (
 		<PageContext.Provider value={{listId, setListId}}>
-			<List listId={listId}/>
+			{listId ? <ListPage listId={listId}/> : <NoList/>}
 		</PageContext.Provider>
 	)
 };

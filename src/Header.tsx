@@ -80,6 +80,11 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 		closeMenu();
 	}
 
+	const handleCopyListId = async () => {
+		await navigator.clipboard.writeText(listId);
+		closeMenu();
+	}
+
 	if (!list) {
 		return null;
 	}
@@ -101,6 +106,9 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 						</div>
 						<div className="menuItem">
 							<span onClick={() => {}}>{t("recentlyDeleted")}</span>
+						</div>
+						<div className="menuItem">
+							<span onClick={handleCopyListId}>Copy list id</span>
 						</div>
 						<div className="flagMenuItem">
 							{supportedLanguages.map(thisLang => (

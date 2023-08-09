@@ -49,3 +49,15 @@ export const rename = mutation({
 		await db.patch(listId, {name});
 	},
 });
+
+export const createIfNonExisting = mutation({
+	args: {listIdStr: v.string(), name: v.string(), color: v.string()},
+	handler: async ({db}, {listIdStr, name, color}) => {
+		const listId = db.normalizeId("lists", listIdStr);
+		if (listId && await db.get(listId)) {
+			return listId;
+		} else {
+			return await db.insert("lists", {name, itemIds: [], color});
+		}
+	},
+});

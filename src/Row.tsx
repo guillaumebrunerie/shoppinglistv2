@@ -10,7 +10,7 @@ import { api } from "../convex/_generated/api";
 import { useMutation } from "convex/react";
 import { DraggableProvided } from "@hello-pangea/dnd";
 
-type Item = {
+export type Item = {
 	_id: Id<"items">,
 	listId: Id<"lists">,
 	childListId?: Id<"lists">,

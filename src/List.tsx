@@ -1,10 +1,10 @@
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { DragDropContext, Draggable, DropResult, Droppable } from "@hello-pangea/dnd";
 import { api } from "../convex/_generated/api";
 import { type Id } from "../convex/_generated/dataModel";
 import AddSubList from "./AddSubList";
 import AddItem from "./AddItem";
-import Row from "./Row";
+import Row, { Item } from "./Row";
 
 import "./List.css";
 import { useTranslate } from "./translation";
@@ -18,10 +18,19 @@ const BackThing = () => (
 	</svg>
 )
 
-const List = ({listId}: {listId: Id<"lists">, isLoading?: boolean}) => {
+type List = {
+	_id: Id<"lists">,
+	isLoading: boolean,
+	name: string,
+	parentListId?: Id<"lists"> | null,
+	parentId?: Id<"items">,
+	items: Item[],
+}
+
+const List = ({list}: {list: List, isLoading?: boolean}) => {
 	const {t} = useTranslate();
 	const {setListId} = useContext(PageContext);
-	const list = useQuery(api.lists.get, {listId});
+	const listId = list._id;
 
 	const reorder = useMutation(api.items.reorder).withOptimisticUpdate(
 		(localStore, {listId, itemId, index}) => {
@@ -41,14 +50,8 @@ const List = ({listId}: {listId: Id<"lists">, isLoading?: boolean}) => {
 		}
 	);
 
-	if (!list) {
-		console.log("No list");
-		return null;
-	}
-	console.log("Yes list", list);
-
 	const goBack = () => {
-		if (list?.parentListId) {
+		if (list.parentListId) {
 			setListId(list.parentListId);
 		}
 	}
@@ -63,13 +66,13 @@ const List = ({listId}: {listId: Id<"lists">, isLoading?: boolean}) => {
 	return (
 		<DragDropContext onDragEnd={handleDragEnd}>
 			<main>
-				{list?.parentListId && <span className="backButton" onClick={goBack}><BackThing/>{t("back")}</span>}
+				{list.parentListId && <span className="backButton" onClick={goBack}><BackThing/>{t("back")}</span>}
 				<Header list={list} doClean={() => {}}/>
 				<Droppable droppableId={listId}>
 					{provided => (
 						<ul ref={provided.innerRef} {...provided.droppableProps}>
-							{list?.parentId && <AddItem listId={listId}/>}
-							{list?.items.map((item, i) => (
+							{list.parentId && <AddItem listId={listId}/>}
+							{list.items.map((item, i) => (
 								<Draggable key={item._id} draggableId={item._id} index={i}>
 									{(provided, snapshot) => (
 										<Row
@@ -86,7 +89,7 @@ const List = ({listId}: {listId: Id<"lists">, isLoading?: boolean}) => {
 						</ul>
 					)}
 				</Droppable>
-				{(!list?.parentId) && <AddSubList listId={listId}/>}
+				{(!list.parentId) && <AddSubList listId={listId}/>}
 			</main>
 		</DragDropContext>
 	);
