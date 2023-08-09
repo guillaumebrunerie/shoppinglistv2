@@ -1,0 +1,14 @@
+svg.editButton {
+	height: 1.5rem;
+	width: 1.5rem;
+	flex: none;
+	cursor: pointer;
+	stroke-width: 10px;
+	stroke: var(--primary);
+	fill: var(--background);
+}
+
+svg.editButton.isCompleted {
+	stroke: var(--background);
+	fill: var(--primary);
+}

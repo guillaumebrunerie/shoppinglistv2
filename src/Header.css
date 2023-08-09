@@ -1,0 +1,89 @@
+div.header {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 0.75rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: var(--primary);
+}
+
+span.name {
+	margin: 0;
+	margin-right: auto;
+	font-size: 2.2rem;
+	font-weight: bold;
+}
+
+span.name.isLoading {
+	opacity: 0.5;
+}
+
+div.menuButton {
+	font-size: 30px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 1;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent; // Disable blue highlight on tap on Android
+}
+
+div.menu {
+	width: 200px;
+	background-color: var(--background);
+	position: absolute;
+	top: 40px;
+	right: -5px;
+	z-index: 1;
+	border: 2px solid var(--primary);
+	outline: 1px solid var(--background);
+	border-radius: 10px;
+	font-size: 1.1rem;
+	line-height: 2rem;
+	& > div:first-of-type {
+		border-radius: 10px 10px 0 0
+	}
+	& > div:last-of-type {
+		border-radius: 0 0 10px 10px
+	}
+}
+
+div.menuItem, div.flagMenuItem {
+	padding: 0.4rem 0.6rem;
+	&:hover {
+		background: #CCC;
+	}
+}
+
+div.flagMenuItem {
+	display: flex;
+	align-items: center;
+	gap: 3px;
+	&:hover {
+		background: none;
+	}
+}
+
+div.flag {
+	flex-grow: 1;
+	text-align: center;
+	border-radius: 5px;
+	&:hover {
+		background: #CCC;
+	}
+}
+
+div.flag.isSelected {
+	border: 2px solid black;
+}
+
+div.backdrop {
+	background-color: black;
+	opacity: 30%;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}

@@ -1,0 +1,14 @@
+svg.deleteButton {
+	height: 1.5rem;
+	width: 1.5rem;
+	flex: none;
+	cursor: pointer;
+	stroke: var(--background);
+	fill: var(--background);
+	stroke-width: 5px;
+}
+
+svg.deleteButton.isCompleted {
+	stroke: var(--primary);
+	fill: var(--primary);
+}

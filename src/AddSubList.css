@@ -1,0 +1,18 @@
+svg.addSubList {
+	position: fixed;
+	bottom: 0.9rem;
+	right: 0.4rem;
+	height: 3.6rem;
+	width: 3.6rem;
+	flex: none;
+	cursor: pointer;
+	stroke: var(--background);
+	stroke-width: 5px;
+	fill: var(--primary);
+	path {
+		stroke: var(--background);
+		stroke-width: 10px;
+		fill: none;
+		stroke-linecap: round;
+	}
+}

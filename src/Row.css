@@ -1,0 +1,86 @@
+li {
+	display: flex;
+	min-height: 3rem;
+	transition: min-height 500ms cubic-bezier(0.22, 1, 0.36, 1);
+	padding-left: 0.8rem;
+	align-items: center;
+	border-top: 1px solid var(--grey);
+	border-bottom: 1px solid var(--grey);
+	font-size: 1.2rem;
+	line-height: 2rem;
+	background-color: var(--primary);
+
+	overflow: scroll;
+	scroll-snap-type: x mandatory;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	& *:first-child, & *:last-child {
+		scroll-snap-align: end;
+	}
+	& svg {
+		border-left: 1px solid var(--grey);
+		padding: 0 1rem;
+		min-height: inherit;
+	}
+}
+
+li.isLoading {
+	opacity: 0.5;
+}
+
+li.isDragging.isCompleted {
+	filter: brightness(0.9);
+}
+
+li.isDragging {
+	filter: brightness(1.7);
+}
+
+li.isCompleted {
+	filter: brightness(${props => props.$isDragging ? (props.$isCompleted ? "0.9" : "1.7") : "1"});
+	background-color: var(--background);
+}
+
+li.isSubList {
+	min-height: 3.5rem;
+	padding-left: 1rem;
+	font-size: 1.5rem;
+}
+
+span.itemText {
+	flex-shrink: 0;
+	width: 100%;
+	color: var(--background);
+	cursor: pointer;
+}
+
+span.itemText.isCompleted {
+	color: var(--grey);
+	text-decoration-line: line-through;
+}
+
+span.itemText.isLoading {
+	color: var(--grey);
+}
+
+input.edit {
+	margin-left: 0;
+	margin-right: 1rem;
+	width: 80%;
+	user-select: text;
+	color: rgb(0 0 0);
+	height: 1.6rem;
+	border-width: 1px;
+	border-radius: 0.1rem;
+	font-size: max(16px, 0.66em); // Needs to be at least 16px for iOS
+	font-weight: inherit;
+	&:focus::placeholder {
+		color: var(--light-grey);
+	}
+	&:focus {
+		outline-offset: 1px;
+		outline: 1.5px solid var(--background);
+	}
+	caret-color: var(--grey);
+}
