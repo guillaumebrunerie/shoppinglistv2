@@ -10,7 +10,7 @@ export const add = mutation({
 			return;
 		}
 		const itemId = await db.insert("items", {listId, value, isCompleted: false})
-		await db.patch(listId, {itemIds: [...list.itemIds, itemId]})
+		await db.patch(listId, {itemIds: [itemId, ...list.itemIds]})
 	},
 });
 

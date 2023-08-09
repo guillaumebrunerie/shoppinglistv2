@@ -38,7 +38,7 @@ const AddItem = ({listId}: {listId: Id<"lists">}) => {
 					{listId},
 					{
 						...currentValue,
-						items: [...currentValue.items, item],
+						items: [item, ...currentValue.items],
 					},
 				);
 			}
