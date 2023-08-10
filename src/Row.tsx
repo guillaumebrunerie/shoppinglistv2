@@ -7,7 +7,7 @@ import { PageContext } from "./App";
 import DeleteButton from "./Delete";
 import EditButton from "./Edit";
 import { api } from "../convex/_generated/api";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { DraggableProvided } from "@hello-pangea/dnd";
 
 export type Item = {
@@ -17,78 +17,17 @@ export type Item = {
 	isCompleted: boolean,
 	value?: string,
 	isLoading: boolean,
-}
+};
+
+const ChildListQuery = ({listId}: {listId: Id<"lists">}) => {
+	useQuery(api.lists.get, {listId});
+	return null;
+};
 
 const Row = ({item, provided, isDragging}: {item: Item, provided: DraggableProvided, isDragging: boolean}) => {
-	// const navigate = useNavigate();
-
-	// // Toggling checked state
-	// const [waitingCheck, doCheck] = useOptimisticAction(
-	// 	() => {
-	// 		if (isEditing) return null;
-	// 		if (isSubList) {
-	// 			navigate(`/${item.childList?.id}`)
-	// 			return null;
-	// 		}
-	// 		return {action: `${item.listId}/toggle`, id: item.id, currentState: `${completed}`};
-	// 	},
-	// 	item.listId,
-	// );
-	// let completed = !isSubList && item.completed;
-	// if (waitingCheck) {
-	// 	completed = waitingCheck.currentState === "false"
-	// }
-
-	// Editing item
-	const [isEditing, setIsEditing] = useState(false);
-	// const [waitingEdit, doEdit] = useOptimisticAction(
-	// 	(value: string) => {
-	// 		setIsEditing(false);
-	// 		if (!value || value === item.value) return null;
-	// 		if (isSubList) {
-	// 			return {action: `${item.childListId}/rename`, id: "", value};
-	// 		} else {
-	// 			return {action: `${item.listId}/edit`, id: item.id, value};
-	// 		}
-	// 	},
-	// 	item.listId,
-	// );
-	// let value = (isSubList ? item.childList?.name : item?.value) as string;
-	// if (waitingEdit) {
-	// 	value = waitingEdit.value as string;
-	// }
-	// const handleBlur = (event: React.FocusEvent) => {
-	// 	doEdit((event.target as HTMLInputElement).value.trim());
-	// }
-	// const handleKeyUp = (event: React.KeyboardEvent) => {
-	// 	if (event.key == "Enter") {
-	// 		doEdit((event.target as HTMLInputElement).value.trim());
-	// 	}
-	// }
-	const startEdit = (event: React.MouseEvent) => {
-		setIsEditing(true);
-		((event.target as Element).parentNode as Element)?.scrollTo(0, 0)
-	}
-
-	// // Deleting item
-	// const [waitingDelete, doDelete] = useOptimisticAction(
-	// 	() => ({action: `${item.listId}/delete`, id: item.id}),
-	// 	item.listId,
-	// );
-
-	// if (isWaitingDelete || waitingDelete) {
-	// 	return (
-	// 		<SRow
-	// 			$isCompleted={completed}
-	// 			$isWaiting={!!waitingCheck || !!waitingEdit}
-	// 			$isWaitingDelete
-	// 		/>
-	// 	);
-	// }
-
 	const {_id: itemId, value, isLoading, isCompleted, childListId, listId} = item;
 
-	const {setListId} = useContext(PageContext);
+	// Mutations
 
 	const toggleCompletion = useMutation(api.items.toggleCompletion)
 		.withOptimisticUpdate((localStore, {itemId, isCompleted}) => {
@@ -137,6 +76,10 @@ const Row = ({item, provided, isDragging}: {item: Item, provided: DraggableProvi
 			}
 		});
 
+	// Clicking on items
+
+	const {setListId} = useContext(PageContext);
+
 	const handleClick = () => {
 		if (item.childListId) {
 			setListId(item.childListId);
@@ -144,11 +87,17 @@ const Row = ({item, provided, isDragging}: {item: Item, provided: DraggableProvi
 			toggleCompletion({itemId, isCompleted})
 		}
 	};
-	const doDelete = () => {
-		deleteItem({itemId});
+
+	// Editing items
+
+	const [isEditing, setIsEditing] = useState(false);
+	const startEdit = (event: React.MouseEvent) => {
+		setIsEditing(true);
+		((event.target as Element).parentNode as Element)?.scrollTo(0, 0)
 	};
 
 	const doEdit = (value: string) => {
+		value = value.trim();
 		setIsEditing(false);
 		if (!value || value === item.value) return;
 		if (childListId) {
@@ -156,16 +105,23 @@ const Row = ({item, provided, isDragging}: {item: Item, provided: DraggableProvi
 		} else {
 			editItem({itemId, value});
 		}
-	}
+	};
 
-	const handleBlur = (event: React.FocusEvent) => {
-		doEdit((event.target as HTMLInputElement).value.trim());
-	}
-	const handleKeyUp = (event: React.KeyboardEvent) => {
+	const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+		doEdit(event.target.value);
+	};
+
+	const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (event.key == "Enter") {
-			doEdit((event.target as HTMLInputElement).value.trim());
+			doEdit(event.currentTarget.value);
 		}
-	}
+	};
+
+	// Deleting items
+
+	const doDelete = () => {
+		deleteItem({itemId});
+	};
 
 	return (
 		<li
@@ -180,6 +136,7 @@ const Row = ({item, provided, isDragging}: {item: Item, provided: DraggableProvi
 			})}
 			onPointerDown={() => isEditing || (document.activeElement as HTMLElement | null)?.blur()}
 		>
+			{childListId && <ChildListQuery listId={childListId}/>}
 			<span className={classNames({itemText: true, isLoading, isCompleted})} onClick={handleClick}>
 				{isEditing
 					? <input className="edit" autoFocus enterKeyHint="done" defaultValue={value} onKeyUp={handleKeyUp} onBlur={handleBlur}/>

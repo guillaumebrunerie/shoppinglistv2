@@ -7,16 +7,8 @@ import AddItem from "./AddItem";
 import Row, { Item } from "./Row";
 
 import "./List.css";
-import { useTranslate } from "./translation";
-import { useContext } from "react";
-import { PageContext } from "./App";
 import Header from "./Header";
-
-const BackThing = () => (
-	<svg className="backThing" viewBox="0 0 60 100">
-		<path d="M 50 90 L 10 50 L 50 10"/>
-	</svg>
-)
+import Back from "./Back";
 
 type List = {
 	_id: Id<"lists">,
@@ -28,8 +20,6 @@ type List = {
 }
 
 const List = ({list}: {list: List, isLoading?: boolean}) => {
-	const {t} = useTranslate();
-	const {setListId} = useContext(PageContext);
 	const listId = list._id;
 
 	const reorder = useMutation(api.items.reorder).withOptimisticUpdate(
@@ -50,11 +40,6 @@ const List = ({list}: {list: List, isLoading?: boolean}) => {
 		}
 	);
 
-	const goBack = () => {
-		if (list.parentListId) {
-			setListId(list.parentListId);
-		}
-	}
 
 	const handleDragEnd = (result: DropResult) => {
 		if (!result.destination || result.source.index === result.destination.index) {
@@ -66,7 +51,7 @@ const List = ({list}: {list: List, isLoading?: boolean}) => {
 	return (
 		<DragDropContext onDragEnd={handleDragEnd}>
 			<main>
-				{list.parentListId && <span className="backButton" onClick={goBack}><BackThing/>{t("back")}</span>}
+				{list.parentListId && <Back listId={list.parentListId}/>}
 				<Header list={list} doClean={() => {}}/>
 				<Droppable droppableId={listId}>
 					{provided => (

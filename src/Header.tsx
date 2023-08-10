@@ -19,16 +19,6 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 
 	const {_id: listId} = list;
 
-	// const [waiting, doRename] = useOptimisticAction(
-	// 	(value: string) => {
-	// 		setIsEditing(false);
-	// 		if (!value || value === list.name) return null;
-	// 		return {action: `${list.id}/rename`, value};
-	// 	},
-	// 	list.id,
-	// )
-	// const name = waiting?.value as string ?? list.name;
-
 	const [isEditing, setIsEditing] = useState(false);
 
 	const renameList = useMutation(api.lists.rename)
@@ -74,7 +64,6 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 	const handleBackToAllLists = () => {
 		localStorage.removeItem("lastList");
 		setListId(null);
-		// navigate("/", {replace: true});
 	}
 
 	const setLanguage = useSetLanguage();
@@ -87,10 +76,6 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 	const handleCopyListId = async () => {
 		await navigator.clipboard.writeText(listId);
 		closeMenu();
-	}
-
-	if (!list) {
-		return null;
 	}
 
 	return (
