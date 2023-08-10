@@ -40,6 +40,21 @@ const List = ({list}: {list: List, isLoading?: boolean}) => {
 		}
 	);
 
+	const clean = useMutation(api.lists.clean).withOptimisticUpdate(
+		(localStore, {listId}) => {
+			const list = localStore.getQuery(api.lists.get, {listId});
+			if (list) {
+				localStore.setQuery(api.lists.get, {listId}, {
+					...list,
+					items: list.items.map(item => item.isCompleted ? {
+						...item,
+						deletedAt: Date.now(),
+					} : item),
+				});
+			}
+		}
+	);
+
 
 	const handleDragEnd = (result: DropResult) => {
 		if (!result.destination || result.source.index === result.destination.index) {
@@ -48,11 +63,15 @@ const List = ({list}: {list: List, isLoading?: boolean}) => {
 		reorder({listId, itemId: result.draggableId as Id<"items">, index: result.destination.index});
 	}
 
+	const doClean = () => {
+		clean({listId});
+	}
+
 	return (
 		<DragDropContext onDragEnd={handleDragEnd}>
 			<main>
 				{list.parentListId && <Back listId={list.parentListId}/>}
-				<Header list={list} doClean={() => {}}/>
+				<Header list={list} doClean={doClean}/>
 				<Droppable droppableId={listId}>
 					{provided => (
 						<ul ref={provided.innerRef} {...provided.droppableProps}>

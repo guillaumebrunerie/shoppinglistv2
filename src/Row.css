@@ -25,6 +25,11 @@ li {
 	}
 }
 
+li.isDeleted {
+	min-height: 0;
+	height: 0;
+}
+
 li.isLoading {
 	opacity: 0.5;
 }

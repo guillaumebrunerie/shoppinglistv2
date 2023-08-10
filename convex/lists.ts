@@ -61,3 +61,19 @@ export const createIfNonExisting = mutation({
 		}
 	},
 });
+
+export const clean = mutation({
+	args: {listId: v.id("lists")},
+	handler: async ({db}, {listId}) => {
+		const list = await db.get(listId);
+		if (!list) {
+			return;
+		}
+		await Promise.all(list.itemIds.map(async itemId => {
+			const item = await db.get(itemId);
+			if (item?.isCompleted) {
+				await db.patch(itemId, {deletedAt: Date.now()});
+			}
+		}));
+	},
+})

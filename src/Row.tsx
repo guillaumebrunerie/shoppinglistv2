@@ -17,6 +17,7 @@ export type Item = {
 	isCompleted: boolean,
 	value?: string,
 	isLoading: boolean,
+	deletedAt?: number,
 };
 
 const ChildListQuery = ({listId}: {listId: Id<"lists">}) => {
@@ -25,7 +26,7 @@ const ChildListQuery = ({listId}: {listId: Id<"lists">}) => {
 };
 
 const Row = ({item, provided, isDragging}: {item: Item, provided: DraggableProvided, isDragging: boolean}) => {
-	const {_id: itemId, value, isLoading, isCompleted, childListId, listId} = item;
+	const {_id: itemId, value, isLoading, isCompleted, childListId, listId, deletedAt} = item;
 
 	// Mutations
 
@@ -131,6 +132,7 @@ const Row = ({item, provided, isDragging}: {item: Item, provided: DraggableProvi
 			className={classNames({
 				isCompleted,
 				isLoading,
+				isDeleted: !!deletedAt,
 				isSubList: !!childListId,
 				isDragging,
 			})}
