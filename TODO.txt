@@ -1,11 +1,12 @@
-- multiple lists
 - optimistic updates for adding/deleting lists/restoring items/going to recently deleted
 - add error pages
 - clean up database
 - fix hit box of the buttons in the header
 - white background for icon
 - cron job to remove old deleted items/lists
+- better UI for multiple lists
+- optimistic updates for multiple lists
 - missing translations
-- clean up List/Item types?
+- clean up List/Item types, and uses of "as"
 - replace some uses of navigate by Link?
 - add alias for @components and @routes

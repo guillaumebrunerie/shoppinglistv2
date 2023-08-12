@@ -6,9 +6,10 @@ import { type Id } from "_generated/dataModel";
 
 import AddSubList from "./AddSubList";
 import AddItem from "./AddItem";
-import Row, { type Item } from "./Row";
+import { type Item } from "./Row";
 import Header from "./Header";
 import Back from "./Back";
+import ConnectedRow from "./ConnectedRow";
 
 import "./List.css";
 
@@ -80,7 +81,7 @@ const List = ({list}: {list: List, isLoading?: boolean}) => {
 							{list.items.map((item, i) => (
 								<Draggable key={item._id} draggableId={item._id} index={i}>
 									{(provided, snapshot) => (
-										<Row
+										<ConnectedRow
 											provided={provided}
 											isDragging={snapshot.isDragging}
 											item={item}

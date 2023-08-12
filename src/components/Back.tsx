@@ -16,7 +16,7 @@ const Back = ({listId}: {listId: Id<"lists">}) => {
 	const {t} = useTranslate();
 	const navigate = useNavigate();
 	const goBack = () => {
-		navigate(-1);
+		navigate(`/lists/${listId}`);
 	}
 	useQuery(api.lists.get, {listId});
 	return <span className="backButton" onClick={goBack}><BackButton/>{t("back")}</span>

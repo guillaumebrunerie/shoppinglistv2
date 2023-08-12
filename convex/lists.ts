@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+import { type Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
 
 export const get = query({
@@ -61,6 +62,25 @@ export const getRecentlyDeleted = query({
 	},
 });
 
+export const getNames = query({
+	args: {listIds: v.array(v.string())},
+	handler: async ({db}, {listIds}) => {
+		const result: {[Key in Id<"lists">]?: string} = {};
+		await Promise.all(listIds.map(async listId_ => {
+			const listId = db.normalizeId("lists", listId_);
+			if (!listId) {
+				return;
+			}
+			const list = await db.get(listId);
+			if (!list) {
+				return;
+			}
+			result[listId] = list.name;
+		}));
+		return result;
+	},
+});
+
 export const add = mutation({
 	args: {listId: v.id("lists"), name: v.string(), color: v.string()},
 	handler: async ({db}, {listId, name, color}) => {
@@ -81,13 +101,13 @@ export const rename = mutation({
 });
 
 export const createIfNonExisting = mutation({
-	args: {listIdStr: v.string(), name: v.string(), color: v.string()},
-	handler: async ({db}, {listIdStr, name, color}) => {
-		const listId = db.normalizeId("lists", listIdStr);
+	args: {listIdOrName: v.string(), color: v.string()},
+	handler: async ({db}, {listIdOrName, color}) => {
+		const listId = db.normalizeId("lists", listIdOrName);
 		if (listId && await db.get(listId)) {
 			return listId;
 		} else {
-			return await db.insert("lists", {name, itemIds: [], color});
+			return await db.insert("lists", {name: listIdOrName, itemIds: [], color});
 		}
 	},
 });
