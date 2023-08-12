@@ -1,8 +1,9 @@
-- better optimistic update for restoring
-- better UI for multiple lists
-- optimistic updates for multiple lists
-- missing translations
-- clean up List/Item types, and uses of "as"
-- replace some uses of navigate by Link?
 - add alias for @components and @routes
+- replace some uses of navigate by Link?
+- clean up List/Item types, and uses of "as"
+- better UI for multiple lists
+- missing translations
+- better optimistic update for restoring
+- optimistic updates/loading for multiple lists
+
 - check that cron is working (after a few days)
