@@ -1,14 +1,14 @@
-import { type Id } from "../convex/_generated/dataModel";
+import { useState } from "react";
 import classNames from "classnames";
+import { DraggableProvided } from "@hello-pangea/dnd";
+import { useMutation, useQuery } from "convex/react";
+import { useNavigate } from "react-router-dom";
 
 import "./Row.css";
-import { useContext, useState } from "react";
-import { PageContext } from "./App";
 import DeleteButton from "./Delete";
 import EditButton from "./Edit";
 import { api } from "../convex/_generated/api";
-import { useMutation, useQuery } from "convex/react";
-import { DraggableProvided } from "@hello-pangea/dnd";
+import { type Id } from "../convex/_generated/dataModel";
 
 export type Item = {
 	_id: Id<"items">,
@@ -79,11 +79,11 @@ const Row = ({item, provided, isDragging}: {item: Item, provided: DraggableProvi
 
 	// Clicking on items
 
-	const {setListId} = useContext(PageContext);
+	const navigate = useNavigate();
 
 	const handleClick = () => {
 		if (item.childListId) {
-			setListId(item.childListId);
+			navigate(`/lists/${item.childListId}`);
 		} else {
 			toggleCompletion({itemId, isCompleted})
 		}

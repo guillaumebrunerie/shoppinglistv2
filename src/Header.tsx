@@ -1,12 +1,12 @@
-import { useContext, useState } from "react";
-import { Lang, flag, supportedLanguages, useSetLanguage, useTranslate } from "./translation";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
+import { useMutation } from "convex/react";
 
 import "./Header.css";
-import { useMutation } from "convex/react";
+import { Lang, flag, supportedLanguages, useSetLanguage, useTranslate } from "./translation";
 import { api } from "../convex/_generated/api";
 import { type Id } from "../convex/_generated/dataModel";
-import { PageContext } from "./App";
 
 type List = {
 	_id: Id<"lists">,
@@ -59,11 +59,11 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 		doClean();
 	}
 
-	const {setListId} = useContext(PageContext);
+	const navigate = useNavigate();
 
 	const handleBackToAllLists = () => {
 		localStorage.removeItem("lastList");
-		setListId(null);
+		navigate("/");
 	}
 
 	const setLanguage = useSetLanguage();

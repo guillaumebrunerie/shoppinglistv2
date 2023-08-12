@@ -1,19 +1,34 @@
+import { useState } from "react";
+import { redirect, useNavigate } from "react-router-dom";
 import { useMutation } from "convex/react";
-import { useContext, useState } from "react";
-import { api } from "../convex/_generated/api";
-import { useTranslate } from "./translation";
-import { PageContext } from "./App";
 
-const NoList = () => {
+import { api } from "../convex/_generated/api";
+import { type Id } from "../convex/_generated/dataModel";
+
+import { useTranslate } from "./translation";
+
+const getListId = () => {
+	return localStorage.getItem("lastList") as Id<"lists"> | null;
+};
+
+export const loader = () => {
+	const lastListId = getListId();
+	if (lastListId) {
+		return redirect(`/lists/${lastListId}`);
+	}
+	return null;
+}
+
+const MainPage = () => {
 	const [value, setValue] = useState("");
+	const navigate = useNavigate();
 
 	const {t} = useTranslate();
 	const createIfNonExisting = useMutation(api.lists.createIfNonExisting);
-	const {setListId} = useContext(PageContext);
 
 	const goToListOrCreate = async () => {
 		const listId = await createIfNonExisting({listIdStr: value, color: "blue", name: t("newList")});
-		setListId(listId);
+		navigate(`/lists/${listId}`);
 		localStorage.setItem("lastList", listId);
 	}
 
@@ -23,6 +38,6 @@ const NoList = () => {
 			<button onClick={goToListOrCreate}>Let’s go</button>
 		</div>
 	)
-}
+};
 
-export default NoList;
+export default MainPage;

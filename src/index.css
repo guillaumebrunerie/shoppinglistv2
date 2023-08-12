@@ -1,0 +1,16 @@
+body, html {
+	height: 100%;
+	margin: 0;
+	--background: #F0F0F0;
+	--grey: #ABAFB1;
+	--primary: #142136;
+	--light-grey: #CCCCCC;
+	font-family: 'Gantari', sans-serif;
+	text-size-adjust: none;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration-line: none;
+	color: inherit;
+}

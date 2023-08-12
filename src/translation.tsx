@@ -32,17 +32,17 @@ const translations = {
 	backToAllLists: {
 		fr: "Retourner à mes listes",
 		en: "Back to my lists",
-		ru: "TODO", // TODO
+		ru: "Back to my lists", // TODO
 	},
 	allMyLists: {
 		fr: "Mes listes de listes",
 		en: "My lists of lists",
-		ru: "TODO", // TODO
+		ru: "My lists of lists", // TODO
 	},
 	copyListId: {
-		fr: "Copier l’identifiant de liste",
-		en: "Copy list identifier",
-		ru: "TODO",
+		fr: "Partager",
+		en: "Share",
+		ru: "Share", // TODO
 	},
 	locale: {
 		fr: "fr-FR",
