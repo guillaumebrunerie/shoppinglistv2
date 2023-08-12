@@ -6,6 +6,9 @@ div.header {
 	justify-content: space-between;
 	align-items: center;
 	color: var(--primary);
+	.backButton ~ & {
+		padding-top: 0;
+	}
 }
 
 span.name {
@@ -23,10 +26,14 @@ div.menuButton {
 	font-size: 30px;
 	position: absolute;
 	top: 10px;
-	right: 10px;
+	right: 0;
 	z-index: 1;
 	cursor: pointer;
 	-webkit-tap-highlight-color: transparent; /* Disable blue highlight on tap on Android */
+	& > span {
+		padding: 10px;
+		padding-left: 20px;
+	}
 }
 
 div.menu {
@@ -34,7 +41,7 @@ div.menu {
 	background-color: var(--background);
 	position: absolute;
 	top: 40px;
-	right: -5px;
+	right: 5px;
 	z-index: 1;
 	border: 2px solid var(--primary);
 	outline: 1px solid var(--background);

@@ -1,5 +1,4 @@
-- clean up database
-- fix hit box of the buttons in the header
+- fix long list name (e.g. wrong id)
 - white background for icon
 - cron job to remove old deleted items/lists
 - better optimistic update for restoring
