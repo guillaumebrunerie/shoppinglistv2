@@ -1,4 +1,3 @@
-- white background for icon
 - cron job to remove old deleted items/lists
 - better optimistic update for restoring
 - better UI for multiple lists
