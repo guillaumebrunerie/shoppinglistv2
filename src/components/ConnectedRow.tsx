@@ -40,7 +40,7 @@ const ConnectedRow = ({item, provided, isDragging}: {item: Item, provided: Dragg
 			if (list) {
 				localStore.setQuery(api.lists.get, {listId}, {
 					...list,
-					items: list.items.map(item => item?._id == itemId ? {...item, deletedAt: Date.now(), isLoading: true} : item)
+					items: list.items.map(item => item?._id == itemId ? {...item, deletedAt: Date.now()} : item)
 				});
 			}
 		});

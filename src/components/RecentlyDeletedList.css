@@ -2,7 +2,8 @@ main.recentlyDeleted {
 	--primary: #444;
 
 	& .itemText {
-		flex-shrink: 1
+		flex-shrink: 1;
+		cursor: auto;
 	}
 }
 

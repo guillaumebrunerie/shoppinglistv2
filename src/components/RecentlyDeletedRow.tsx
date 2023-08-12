@@ -10,9 +10,19 @@ const RecentlyDeletedRow = ({item}: {item: Item}) => {
 		value,
 		isCompleted,
 		isLoading,
+		listId,
 	} = item;
 
-	const restore = useMutation(api.items.restore);
+	const restore = useMutation(api.items.restore)
+		.withOptimisticUpdate(localStore => {
+			const list = localStore.getQuery(api.lists.getRecentlyDeleted, {listId});
+			if (list) {
+				localStore.setQuery(api.lists.getRecentlyDeleted, {listId}, {
+					...list,
+					items: list.items.filter(item => item?._id !== itemId),
+				});
+			}
+		});
 
 	const doRestore = () => {
 		restore({itemId});

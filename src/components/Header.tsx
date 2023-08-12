@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classNames from "classnames";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 
 import { api } from "_generated/api";
 import { type Id } from "_generated/dataModel";
@@ -79,6 +79,8 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 		await navigator.clipboard.writeText(listId);
 		closeMenu();
 	}
+
+	useQuery(api.lists.getRecentlyDeleted, {listId});
 
 	return (
 		<div className="header">
