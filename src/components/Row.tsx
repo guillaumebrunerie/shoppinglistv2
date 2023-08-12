@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import "./Row.css";
 import DeleteButton from "./Delete";
 import EditButton from "./Edit";
-import { api } from "../convex/_generated/api";
-import { type Id } from "../convex/_generated/dataModel";
+import { api } from "_generated/api";
+import { type Id } from "_generated/dataModel";
 
 export type Item = {
 	_id: Id<"items">,

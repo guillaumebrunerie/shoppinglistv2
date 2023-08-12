@@ -2,10 +2,10 @@ import { useState } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import { useMutation } from "convex/react";
 
-import { api } from "../convex/_generated/api";
-import { type Id } from "../convex/_generated/dataModel";
+import { api } from "_generated/api";
+import { type Id } from "_generated/dataModel";
 
-import { useTranslate } from "./translation";
+import { useTranslate } from "../translation";
 
 const getListId = () => {
 	return localStorage.getItem("lastList") as Id<"lists"> | null;

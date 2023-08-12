@@ -1,16 +1,18 @@
 import { useMutation } from "convex/react";
 import { DragDropContext, Draggable, DropResult, Droppable } from "@hello-pangea/dnd";
-import { api } from "../convex/_generated/api";
-import { type Id } from "../convex/_generated/dataModel";
+
+import { api } from "_generated/api";
+import { type Id } from "_generated/dataModel";
+
 import AddSubList from "./AddSubList";
 import AddItem from "./AddItem";
-import Row, { Item } from "./Row";
-
-import "./List.css";
+import Row, { type Item } from "./Row";
 import Header from "./Header";
 import Back from "./Back";
 
-type List = {
+import "./List.css";
+
+export type List = {
 	_id: Id<"lists">,
 	isLoading: boolean,
 	name: string,

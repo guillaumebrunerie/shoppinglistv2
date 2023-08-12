@@ -4,9 +4,10 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 
 import './index.css'
-import { LangProvider } from './translation.tsx';
-import MainPage, { loader as rootLoader } from './MainPage.tsx';
-import ListPage from './ListPage.tsx';
+import { LangProvider } from './translation';
+import MainPage, { loader as rootLoader } from './routes/MainPage';
+import ListPage from './routes/ListPage';
+import RecentlyDeletedPage from './routes/RecentlyDeletedPage';
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
@@ -24,8 +25,8 @@ const router = createBrowserRouter(createRoutesFromElements(
 			element={<ListPage/>}
 		/>
 		<Route
-			// path="/lists/:listId/recentlyDeleted"
-			// element={<RecentlyDeletedPage/>}
+			path="/lists/:listId/recentlyDeleted"
+			element={<RecentlyDeletedPage/>}
 		/>
 	</Route>
 ));

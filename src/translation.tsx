@@ -62,7 +62,7 @@ const translations = {
 } as const;
 type TranslationKey = keyof (typeof translations)
 
-export const flag = (lang: Lang): string => translations.flag[lang];
+export const flag = (lang: Lang) => translations.flag[lang];
 
 const context = React.createContext<[Lang, (l: Lang) => void]>(["fr", () => {}]);
 
@@ -70,22 +70,18 @@ type ProviderProps = {
 	children: React.ReactNode;
 };
 
-const getSavedLanguage = (): Lang | null => {
-	return null;
+const getLanguage = (): Lang => {
+	const lang = localStorage.getItem("lang");
+	if (lang && supportedLanguages.includes(lang as Lang)) {
+		return lang as Lang;
+	}
+	return "fr";
 };
 
 export const LangProvider = ({ children }: ProviderProps) => {
-	const langState = React.useState<Lang>(getSavedLanguage() || "fr");
-	const [, setLang] = langState;
-	React.useEffect(() => {
-		const savedLanguage = localStorage.getItem("lang");
-		if (savedLanguage && supportedLanguages.includes(savedLanguage as Lang)) {
-			setLang(savedLanguage as Lang);
-		}
-	}, [setLang]);
+	const langState = React.useState(getLanguage());
 	return <context.Provider value={langState}>{children}</context.Provider>;
 };
-
 
 export const useTranslate = () => {
 	const [lang] = React.useContext(context);

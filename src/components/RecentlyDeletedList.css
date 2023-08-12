@@ -1,0 +1,18 @@
+main.recentlyDeleted {
+	--primary: #444;
+
+	& .itemText {
+		flex-shrink: 1
+	}
+}
+
+div.dateHeader {
+	padding-left: 0.25rem;
+	padding-top: 0.75rem;
+	padding-bottom: 0.25rem;
+	color: var(--primary);
+
+	&:empty {
+		display: none;
+	}
+}

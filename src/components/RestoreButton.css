@@ -1,0 +1,12 @@
+svg.restoreButton {
+	height: 1.5rem;
+	width: 1.5rem;
+	flex: none;
+	cursor: pointer;
+	stroke: var(--background);
+	stroke-width: 7;
+}
+
+svg.restoreButton.isCompleted {
+	stroke: var(--primary);
+}

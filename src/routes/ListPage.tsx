@@ -1,8 +1,10 @@
-import { useQuery } from "convex/react";
-import { type Id } from "../convex/_generated/dataModel";
-import { api } from "../convex/_generated/api";
-import List from "./List";
 import { useParams } from "react-router-dom";
+import { useQuery } from "convex/react";
+
+import { type Id } from "_generated/dataModel";
+import { api } from "_generated/api";
+
+import List from "../components/List";
 
 const ListPage = () => {
 	const params = useParams();

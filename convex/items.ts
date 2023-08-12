@@ -35,6 +35,13 @@ export const remove = mutation({
 	},
 });
 
+export const restore = mutation({
+	args: {itemId: v.id("items")},
+	handler: async ({db}, {itemId}) => {
+		await db.patch(itemId, {deletedAt: undefined});
+	},
+});
+
 export const reorder = mutation({
 	args: {listId: v.id("lists"), itemId: v.id("items"), index: v.number()},
 	handler: async ({db}, {listId, itemId, index}) => {

@@ -31,6 +31,36 @@ export const get = query({
 	},
 });
 
+export const getRecentlyDeleted = query({
+	args: {listId: v.id("lists")},
+	handler: async ({db}, {listId}) => {
+		const list = await db.get(listId);
+		if (!list) {
+			return list;
+		}
+		const items = (await Promise.all(list.itemIds.map(async itemId => {
+			const item = await db.get(itemId);
+			if (!item || !item.deletedAt) {
+				return [];
+			}
+			if (item?.childListId) {
+				item.value = (await db.get(item.childListId))?.name;
+			}
+			return [{
+				...item,
+				isLoading: false,
+			}];
+		}))).flat();
+		const parentListId = list.parentId && (await db.get(list.parentId))?.listId || null;
+		return {
+			...list,
+			isLoading: false,
+			items,
+			parentListId
+		};
+	},
+});
+
 export const add = mutation({
 	args: {listId: v.id("lists"), name: v.string(), color: v.string()},
 	handler: async ({db}, {listId, name, color}) => {

@@ -1,9 +1,12 @@
 import { useState } from "react";
-import "./AddItem.css";
-import { type Id } from "../convex/_generated/dataModel";
 import { useMutation } from "convex/react";
-import { api } from "../convex/_generated/api";
-import { useTranslate } from "./translation";
+
+import { type Id } from "_generated/dataModel";
+import { api } from "_generated/api";
+
+import { useTranslate } from "../translation";
+
+import "./AddItem.css";
 
 const AddItem = ({listId}: {listId: Id<"lists">}) => {
 	const {t} = useTranslate();

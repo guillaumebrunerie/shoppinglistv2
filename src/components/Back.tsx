@@ -1,8 +1,10 @@
-import { useQuery } from "convex/react";
-import { useTranslate } from "./translation";
-import { api } from "../convex/_generated/api";
-import { type Id } from "../convex/_generated/dataModel";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "convex/react";
+
+import { api } from "_generated/api";
+import { type Id } from "_generated/dataModel";
+
+import { useTranslate } from "../translation";
 
 const BackButton = () => (
 	<svg className="backThing" viewBox="0 0 60 100">

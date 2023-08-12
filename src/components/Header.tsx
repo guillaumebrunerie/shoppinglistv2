@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { useMutation } from "convex/react";
 
+import { api } from "_generated/api";
+import { type Id } from "_generated/dataModel";
+
 import "./Header.css";
-import { Lang, flag, supportedLanguages, useSetLanguage, useTranslate } from "./translation";
-import { api } from "../convex/_generated/api";
-import { type Id } from "../convex/_generated/dataModel";
+import { Lang, flag, supportedLanguages, useSetLanguage, useTranslate } from "../translation";
 
 type List = {
 	_id: Id<"lists">,
@@ -94,7 +95,7 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 							{t("clearList")}
 						</div>
 						<div className="menuItem">
-							<span onClick={() => {}}>{t("recentlyDeleted")}</span>
+							<Link to="recentlyDeleted">{t("recentlyDeleted")}</Link>
 						</div>
 						<div className="menuItem">
 							<span onClick={handleCopyListId}>{t("copyListId")}</span>
