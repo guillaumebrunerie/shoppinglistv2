@@ -8,12 +8,13 @@ import { LangProvider } from './translation';
 import MainPage, { loader as rootLoader } from './routes/MainPage';
 import ListPage from './routes/ListPage';
 import RecentlyDeletedPage from './routes/RecentlyDeletedPage';
+import ErrorPage from './routes/ErrorPage';
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
 const router = createBrowserRouter(createRoutesFromElements(
 	<Route
-		// errorElement={<ErrorPage/>}
+		errorElement={<ErrorPage/>}
 	>
 		<Route
 			path="/"

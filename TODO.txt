@@ -1,4 +1,4 @@
-- add error pages
+- remember last list
 - clean up database
 - fix hit box of the buttons in the header
 - white background for icon
