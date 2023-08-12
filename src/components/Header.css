@@ -16,6 +16,8 @@ span.name {
 	margin-right: auto;
 	font-size: 2.2rem;
 	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 span.name.isLoading {
