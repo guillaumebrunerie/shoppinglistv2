@@ -14,6 +14,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as cleanup from "../cleanup";
 import type * as items from "../items";
 import type * as lists from "../lists";
 import type * as migrations from "../migrations";
@@ -27,6 +28,7 @@ import type * as migrations from "../migrations";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  cleanup: typeof cleanup;
   items: typeof items;
   lists: typeof lists;
   migrations: typeof migrations;
