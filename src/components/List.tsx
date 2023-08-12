@@ -12,6 +12,8 @@ import Back from "./Back";
 import ConnectedRow from "./ConnectedRow";
 
 import "./List.css";
+import { useEffect } from "react";
+import { setLastListId } from "../localLists";
 
 export type List = {
 	_id: Id<"lists">,
@@ -24,6 +26,12 @@ export type List = {
 
 const List = ({list}: {list: List, isLoading?: boolean}) => {
 	const listId = list._id;
+
+	useEffect(() => {
+		if (!list.parentListId) {
+			setLastListId(listId);
+		}
+	}, [list.parentListId, listId]);
 
 	const reorder = useMutation(api.items.reorder).withOptimisticUpdate(
 		(localStore, {listId, itemId, index}) => {
