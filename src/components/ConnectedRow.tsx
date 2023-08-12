@@ -46,12 +46,12 @@ const ConnectedRow = ({item, provided, isDragging}: {item: Item, provided: Dragg
 		});
 
 	const renameList = useMutation(api.lists.rename)
-		.withOptimisticUpdate((localStore, {listId, name}) => {
+		.withOptimisticUpdate((localStore, {listId: childListId, name}) => {
 			const list = localStore.getQuery(api.lists.get, {listId});
 			if (list) {
 				localStore.setQuery(api.lists.get, {listId}, {
 					...list,
-					name,
+					items: list.items.map(item => item?.childListId == childListId ? {...item, value: name, isLoading: true} : item)
 				});
 			}
 		});

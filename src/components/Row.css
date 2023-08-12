@@ -25,7 +25,7 @@ li {
 	}
 }
 
-li.isDeleted {
+li.isDeleted, li.isDeleted.isSubList {
 	min-height: 0;
 	height: 0;
 }

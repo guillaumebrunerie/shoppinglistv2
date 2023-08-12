@@ -10,18 +10,7 @@ import "./AddItem.css";
 
 const AddItem = ({listId}: {listId: Id<"lists">}) => {
 	const {t} = useTranslate();
-	// const params = useParams();
-	// const listId = params.listId as string;
 	const [text, setText] = useState("");
-
-	// const [waitingAdd, doAdd] = useOptimisticAction(
-	// 	(value: string) => {
-	// 		if (!value) return null;
-	// 		setText("");
-	// 		return {action: `${listId}/add`, value};
-	// 	},
-	// 	listId,
-	// );
 
 	const add = useMutation(api.items.add)
 		.withOptimisticUpdate((localStore, {value, listId}) => {
