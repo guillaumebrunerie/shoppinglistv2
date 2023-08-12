@@ -1,4 +1,5 @@
-import { mutation } from "./_generated/server";
+import { v } from "convex/values";
+import { internalMutation, mutation } from "./_generated/server";
 
 export const removeOrphanLists = mutation({
 	handler: async ({db}) => {
@@ -79,3 +80,21 @@ export const removeListItemsWithOrphanList = mutation({
 	},
 });
 
+export const removeDeletedItemsOlderThan = internalMutation({
+	args: {days: v.number()},
+	handler: async ({db}, {days}) => {
+		const dateBefore = Date.now() - days * 24 * 3600 * 1000;
+		const items = await db.query("items").filter(q =>
+			q.and(
+				q.neq(q.field("deletedAt"), undefined),
+				q.lt(q.field("deletedAt"), dateBefore),
+			),
+		).collect();
+		let n = 0;
+		await Promise.all(items.map(async () => {
+			// await db.delete(item._id);
+			n++;
+		}));
+		return `would delete ${n} item${n == 1 ? "" : "s"}`;
+	}
+})

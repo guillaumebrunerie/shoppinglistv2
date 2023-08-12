@@ -15,9 +15,9 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as cleanup from "../cleanup";
+import type * as crons from "../crons";
 import type * as items from "../items";
 import type * as lists from "../lists";
-import type * as migrations from "../migrations";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -29,9 +29,9 @@ import type * as migrations from "../migrations";
  */
 declare const fullApi: ApiFromModules<{
   cleanup: typeof cleanup;
+  crons: typeof crons;
   items: typeof items;
   lists: typeof lists;
-  migrations: typeof migrations;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

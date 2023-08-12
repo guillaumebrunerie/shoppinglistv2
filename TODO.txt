@@ -1,4 +1,3 @@
-- cron job to remove old deleted items/lists
 - better optimistic update for restoring
 - better UI for multiple lists
 - optimistic updates for multiple lists
@@ -6,3 +5,4 @@
 - clean up List/Item types, and uses of "as"
 - replace some uses of navigate by Link?
 - add alias for @components and @routes
+- check that cron is working (after a few days)
