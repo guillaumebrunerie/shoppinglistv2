@@ -57,7 +57,6 @@ const List = ({list}: {list: List, isLoading?: boolean}) => {
 		}
 	);
 
-
 	const handleDragEnd = (result: DropResult) => {
 		if (!result.destination || result.source.index === result.destination.index) {
 			return null;
