@@ -3,20 +3,19 @@ import classNames from "classnames";
 import { DraggableProvided } from "@hello-pangea/dnd";
 import { useQuery } from "convex/react";
 
-import DeleteButton from "./Delete";
-import EditButton from "./Edit";
 import { api } from "_generated/api";
 import { type Id } from "_generated/dataModel";
+
+import DeleteButton from "./Delete";
+import EditButton from "./Edit";
 
 import "./Row.css";
 
 export type Item = {
-	_id: Id<"items">,
-	listId: Id<"lists">,
 	childListId?: Id<"lists">,
 	isCompleted: boolean,
-	value?: string,
-	isLoading: boolean,
+	value: string,
+	isLoading?: boolean,
 	deletedAt?: number,
 };
 

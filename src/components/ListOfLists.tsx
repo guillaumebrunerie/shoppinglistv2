@@ -2,13 +2,19 @@ import { DragDropContext, Draggable, DropResult, Droppable } from "@hello-pangea
 
 import { type Id } from "_generated/dataModel";
 
-import { List } from "./List";
 import ListOfListsRow from "./ListOfListsRow";
 import { useTranslate } from "../translation";
 import { reorderKnownListIds } from "../localLists";
 
+type List = {
+	items: {
+		childListId: Id<"lists">,
+		value: string,
+		isCompleted: false,
+	}[],
+};
+
 const ListOfLists = ({list}: {list: List}) => {
-	const listId = list._id;
 	const {t} = useTranslate();
 
 	const handleDragEnd = (result: DropResult) => {
@@ -26,7 +32,7 @@ const ListOfLists = ({list}: {list: List}) => {
 						{t("allMyLists")}
 					</span>
 				</div>
-				<Droppable droppableId={listId}>
+				<Droppable droppableId="listOfLists">
 					{provided => (
 						<ul ref={provided.innerRef} {...provided.droppableProps}>
 							{list.items.map((item, i) => (

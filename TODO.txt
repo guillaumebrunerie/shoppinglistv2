@@ -1,6 +1,6 @@
-- clean up List/Item types, and uses of "as"
-- replace some uses of navigate by Link?
+- verbatim modules
 - use Prettier
+- replace some uses of navigate by Link?
 - clean up CSS (use CSS modules?)
 - better UI for multiple lists
 - missing translations

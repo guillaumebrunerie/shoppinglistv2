@@ -1,10 +1,19 @@
-import { DraggableProvided } from "@hello-pangea/dnd";
-import Row, { Item } from "./Row";
-import { useMutation } from "convex/react";
-import { api } from "_generated/api";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "convex/react";
+import { DraggableProvided } from "@hello-pangea/dnd";
 
-const ConnectedRow = ({item, provided, isDragging}: {item: Item, provided: DraggableProvided, isDragging: boolean}) => {
+import { api } from "_generated/api";
+import { type ConnectedItem } from "../../convex/lists";
+
+import Row from "./Row";
+
+type ConnectedRowProps = {
+	item: ConnectedItem,
+	provided: DraggableProvided,
+	isDragging: boolean,
+}
+
+const ConnectedRow = ({item, provided, isDragging}: ConnectedRowProps) => {
 	const {_id: itemId, isCompleted, childListId, listId} = item;
 
 	// Mutations

@@ -1,9 +1,18 @@
-import { DraggableProvided } from "@hello-pangea/dnd";
-import Row, { Item } from "./Row";
 import { useNavigate } from "react-router-dom";
-import { getKnownListIds, removeKnownListId } from "../localLists";
-import { api } from "_generated/api";
 import { useMutation } from "convex/react";
+import { DraggableProvided } from "@hello-pangea/dnd";
+
+import { api } from "_generated/api";
+import { type Id } from "_generated/dataModel";
+
+import { getKnownListIds, removeKnownListId } from "../localLists";
+import Row from "./Row";
+
+type Item = {
+	childListId: Id<"lists">,
+	value: string,
+	isCompleted: false,
+};
 
 const ListOfListsRow = ({item, provided, isDragging}: {item: Item, provided: DraggableProvided, isDragging: boolean}) => {
 	const navigate = useNavigate();

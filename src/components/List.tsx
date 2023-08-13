@@ -3,10 +3,10 @@ import { DragDropContext, Draggable, DropResult, Droppable } from "@hello-pangea
 
 import { api } from "_generated/api";
 import { type Id } from "_generated/dataModel";
+import { ConnectedList } from "../../convex/lists";
 
 import AddSubList from "./AddSubList";
 import AddItem from "./AddItem";
-import { type Item } from "./Row";
 import Header from "./Header";
 import Back from "./Back";
 import ConnectedRow from "./ConnectedRow";
@@ -15,16 +15,7 @@ import "./List.css";
 import { useEffect } from "react";
 import { setLastListId } from "../localLists";
 
-export type List = {
-	_id: Id<"lists">,
-	isLoading: boolean,
-	name: string,
-	parentListId?: Id<"lists"> | null,
-	parentId?: Id<"items">,
-	items: Item[],
-}
-
-const List = ({list}: {list: List, isLoading?: boolean}) => {
+const List = ({list}: {list: ConnectedList}) => {
 	const listId = list._id;
 
 	useEffect(() => {
@@ -85,7 +76,7 @@ const List = ({list}: {list: List, isLoading?: boolean}) => {
 				<Droppable droppableId={listId}>
 					{provided => (
 						<ul ref={provided.innerRef} {...provided.droppableProps}>
-							{list.parentId && <AddItem listId={listId}/>}
+							{list.parentListId && <AddItem listId={listId}/>}
 							{list.items.map((item, i) => (
 								<Draggable key={item._id} draggableId={item._id} index={i}>
 									{(provided, snapshot) => (
@@ -93,8 +84,6 @@ const List = ({list}: {list: List, isLoading?: boolean}) => {
 											provided={provided}
 											isDragging={snapshot.isDragging}
 											item={item}
-											// isWaitingReorder={!!waitingReorder && waitingReorder.itemId == item.id}
-											// isWaitingDelete={!!waitingIds && waitingIds.includes(item.id)}
 										/>
 									)}
 								</Draggable>
@@ -103,7 +92,7 @@ const List = ({list}: {list: List, isLoading?: boolean}) => {
 						</ul>
 					)}
 				</Droppable>
-				{(!list.parentId) && <AddSubList listId={listId}/>}
+				{(!list.parentListId) && <AddSubList listId={listId}/>}
 			</main>
 		</DragDropContext>
 	);

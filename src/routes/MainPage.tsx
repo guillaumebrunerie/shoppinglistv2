@@ -6,7 +6,6 @@ import { api } from "_generated/api";
 import { type Id } from "_generated/dataModel";
 
 import ListOfLists from "../components/ListOfLists";
-import { List } from "../components/List";
 import { addToKnownListIds, getKnownListIds, getLastListId, setLastListId } from "../localLists";
 
 export const loader = () => {
@@ -25,23 +24,17 @@ const useRerenderOnStorageEvent = () => {
 	}, []);
 }
 
-const useKnownLists = (): List => {
+const useKnownLists = () => {
 	const listIds = getKnownListIds();
 	const names = useQuery(api.lists.getNames, {listIds: [...listIds].sort()});
 
 	useRerenderOnStorageEvent();
 
 	return {
-		_id: "knownLists" as Id<"lists">,
-		isLoading: false,
-		name: "No name",
 		items: listIds.map(listId => ({
-			_id: "" as Id<"items">,
-			listId: "" as Id<"lists">,
 			childListId: listId as Id<"lists">,
-			isCompleted: false,
 			value: names?.[listId] || "(unknown list)",
-			isLoading: false,
+			isCompleted: false as const,
 		}))
 	}
 }

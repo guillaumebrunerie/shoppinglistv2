@@ -1,10 +1,46 @@
+import { DatabaseReader } from "convex/server";
 import { v } from "convex/values";
-import { type Id } from "./_generated/dataModel";
+
+import { DataModel, Doc, type Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
+
+export type ConnectedItem = {
+	_id: Id<"items">,
+	listId: Id<"lists">,
+	childListId?: Id<"lists">,
+	isCompleted: boolean,
+	value: string,
+	isLoading?: boolean,
+	deletedAt?: number,
+};
+
+export type ConnectedList = {
+	_id: Id<"lists">,
+	name: string,
+	isLoading: boolean,
+	items: ConnectedItem[],
+	parentListId: Id<"lists"> | null,
+};
+
+const getItemValue = async (
+	db: DatabaseReader<DataModel>,
+	{value, childListId}: Doc<"items">,
+) => {
+	if (value) {
+		return value;
+	}
+	if (childListId) {
+		const childList = await db.get(childListId);
+		if (childList) {
+			return childList.name;
+		}
+	}
+	return "unknown";
+};
 
 export const get = query({
 	args: {listId: v.id("lists")},
-	handler: async ({db}, {listId}) => {
+	handler: async ({db}, {listId}): Promise<ConnectedList | null> => {
 		const list = await db.get(listId);
 		if (!list) {
 			return list;
@@ -14,12 +50,10 @@ export const get = query({
 			if (!item || item.deletedAt) {
 				return [];
 			}
-			if (item?.childListId) {
-				item.value = (await db.get(item.childListId))?.name;
-			}
 			return [{
 				...item,
 				isLoading: false,
+				value: await getItemValue(db, item),
 			}];
 		}))).flat();
 		const parentListId = list.parentId && (await db.get(list.parentId))?.listId || null;
@@ -34,7 +68,7 @@ export const get = query({
 
 export const getRecentlyDeleted = query({
 	args: {listId: v.id("lists")},
-	handler: async ({db}, {listId}) => {
+	handler: async ({db}, {listId}): Promise<ConnectedList | null> => {
 		const list = await db.get(listId);
 		if (!list) {
 			return list;
@@ -44,12 +78,10 @@ export const getRecentlyDeleted = query({
 			if (!item || !item.deletedAt) {
 				return [];
 			}
-			if (item?.childListId) {
-				item.value = (await db.get(item.childListId))?.name;
-			}
 			return [{
 				...item,
 				isLoading: false,
+				value: await getItemValue(db, item),
 			}];
 		}))).flat();
 		const parentListId = list.parentId && (await db.get(list.parentId))?.listId || null;

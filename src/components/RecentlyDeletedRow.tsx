@@ -1,10 +1,12 @@
-import classNames from "classnames";
-import { Item } from "./Row";
-import RestoreButton from "./RestoreButton";
-import { api } from "_generated/api";
 import { useMutation } from "convex/react";
+import classNames from "classnames";
 
-const RecentlyDeletedRow = ({item}: {item: Item}) => {
+import { api } from "_generated/api";
+import { ConnectedItem } from "../../convex/lists";
+
+import RestoreButton from "./RestoreButton";
+
+const RecentlyDeletedRow = ({item}: {item: ConnectedItem}) => {
 	const {
 		_id: itemId,
 		value,

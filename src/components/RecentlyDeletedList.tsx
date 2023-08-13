@@ -1,14 +1,17 @@
+import { Fragment } from "react";
+import classNames from "classnames";
+
+import { ConnectedList } from "../../convex/lists";
+
 import { useTranslate } from "../translation";
+
 import { Item } from "./Row";
 import Back from "./Back";
-import classNames from "classnames";
-import { Fragment } from "react";
 import RecentlyDeletedRow from "./RecentlyDeletedRow";
-import { type List } from "./List";
 
 import "./RecentlyDeletedList.css";
 
-const RecentlyDeletedList = ({list}: {list: List}) => {
+const RecentlyDeletedList = ({list}: {list: ConnectedList}) => {
 	const {_id: listId, items, isLoading} = list;
 	const {t} = useTranslate();
 
