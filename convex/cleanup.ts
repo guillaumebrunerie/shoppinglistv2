@@ -15,7 +15,7 @@ export const removeOrphanLists = mutation({
 				n++;
 			}
 		}));
-		return `${n} list${n == 1 ? "" : "s"} deleted`;
+		console.log(`${n} list${n == 1 ? "" : "s"} deleted`);
 	},
 });
 
@@ -29,7 +29,7 @@ export const removeEmptyRootLists = mutation({
 				n++;
 			}
 		}));
-		return `${n} list${n == 1 ? "" : "s"} deleted`;
+		console.log(`${n} list${n == 1 ? "" : "s"} deleted`);
 	},
 });
 
@@ -43,7 +43,7 @@ export const removeListsWithDefaultName = mutation({
 				n++;
 			}
 		}));
-		return `${n} list${n == 1 ? "" : "s"} deleted`;
+		console.log(`${n} list${n == 1 ? "" : "s"} deleted`);
 	},
 });
 
@@ -58,7 +58,7 @@ export const removeOrphanItems = mutation({
 				n++;
 			}
 		}));
-		return `${n} item${n == 1 ? "" : "s"} deleted`;
+		console.log(`${n} item${n == 1 ? "" : "s"} deleted`);
 	},
 });
 
@@ -76,7 +76,7 @@ export const removeListItemsWithOrphanList = mutation({
 				n++;
 			}
 		}));
-		return `${n} item${n == 1 ? "" : "s"} deleted`;
+		console.log(`${n} item${n == 1 ? "" : "s"} deleted`);
 	},
 });
 
@@ -95,6 +95,6 @@ export const removeDeletedItemsOlderThan = internalMutation({
 			// await db.delete(item._id);
 			n++;
 		}));
-		return `would delete ${n} item${n == 1 ? "" : "s"}`;
+		console.log(`would delete ${n} item${n == 1 ? "" : "s"}`);
 	}
 })

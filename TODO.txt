@@ -1,9 +1,9 @@
-- add alias for @components and @routes
-- replace some uses of navigate by Link?
 - clean up List/Item types, and uses of "as"
+- replace some uses of navigate by Link?
+- use Prettier
+- clean up CSS (use CSS modules?)
 - better UI for multiple lists
 - missing translations
 - better optimistic update for restoring
 - optimistic updates/loading for multiple lists
-
 - check that cron is working (after a few days)

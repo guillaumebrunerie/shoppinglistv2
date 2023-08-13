@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "convex/react";
 
 import { api } from "_generated/api";
@@ -14,12 +14,8 @@ const BackButton = () => (
 
 const Back = ({listId}: {listId: Id<"lists">}) => {
 	const {t} = useTranslate();
-	const navigate = useNavigate();
-	const goBack = () => {
-		navigate(`/lists/${listId}`);
-	}
 	useQuery(api.lists.get, {listId});
-	return <span className="backButton" onClick={goBack}><BackButton/>{t("back")}</span>
+	return <Link className="backButton" to={`/lists/${listId}`}><BackButton/>{t("back")}</Link>
 };
 
 export default Back;
