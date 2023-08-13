@@ -1,4 +1,3 @@
-- verbatim modules
 - use Prettier
 - replace some uses of navigate by Link?
 - clean up CSS (use CSS modules?)

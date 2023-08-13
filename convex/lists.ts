@@ -1,7 +1,7 @@
-import { DatabaseReader } from "convex/server";
+import type { DatabaseReader } from "convex/server";
 import { v } from "convex/values";
 
-import { DataModel, Doc, type Id } from "./_generated/dataModel";
+import type { DataModel, Doc, Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
 
 export type ConnectedItem = {

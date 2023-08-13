@@ -1,6 +1,6 @@
 import { useState } from "react";
 import classNames from "classnames";
-import { DraggableProvided } from "@hello-pangea/dnd";
+import type { DraggableProvided } from "@hello-pangea/dnd";
 import { useQuery } from "convex/react";
 
 import { api } from "_generated/api";

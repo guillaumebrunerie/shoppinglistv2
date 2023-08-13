@@ -1,11 +1,10 @@
 import { Fragment } from "react";
 import classNames from "classnames";
 
-import { ConnectedList } from "../../convex/lists";
+import type { ConnectedList } from "../../convex/lists";
 
 import { useTranslate } from "../translation";
 
-import { Item } from "./Row";
 import Back from "./Back";
 import RecentlyDeletedRow from "./RecentlyDeletedRow";
 
@@ -15,7 +14,7 @@ const RecentlyDeletedList = ({list}: {list: ConnectedList}) => {
 	const {_id: listId, items, isLoading} = list;
 	const {t} = useTranslate();
 
-	const getDateHeader = (from: Item | undefined, to: Item) => {
+	const getDateHeader = (from: {deletedAt?: number} | undefined, to: {deletedAt?: number}) => {
 		if (!to.deletedAt) throw new Error("error");
 		if (from && !from.deletedAt) throw new Error("error");
 		const options = {day: "numeric", month: "long", hour: "numeric", minute: "numeric"} as const;

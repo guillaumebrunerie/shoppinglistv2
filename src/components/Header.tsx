@@ -6,7 +6,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "_generated/api";
 import { type Id } from "_generated/dataModel";
 
-import { Lang, flag, supportedLanguages, useSetLanguage, useTranslate } from "../translation";
+import { type Lang, flag, supportedLanguages, useSetLanguage, useTranslate } from "../translation";
 import { unsetLastListId } from "../localLists";
 
 import "./Header.css";

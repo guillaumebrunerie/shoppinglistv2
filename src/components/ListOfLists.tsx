@@ -1,4 +1,4 @@
-import { DragDropContext, Draggable, DropResult, Droppable } from "@hello-pangea/dnd";
+import { DragDropContext, Draggable, Droppable, type DropResult } from "@hello-pangea/dnd";
 
 import { type Id } from "_generated/dataModel";
 

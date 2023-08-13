@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "convex/react";
-import { DraggableProvided } from "@hello-pangea/dnd";
+import type { DraggableProvided } from "@hello-pangea/dnd";
 
 import { api } from "_generated/api";
 import { type Id } from "_generated/dataModel";

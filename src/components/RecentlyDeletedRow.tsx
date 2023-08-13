@@ -2,7 +2,7 @@ import { useMutation } from "convex/react";
 import classNames from "classnames";
 
 import { api } from "_generated/api";
-import { ConnectedItem } from "../../convex/lists";
+import type { ConnectedItem } from "../../convex/lists";
 
 import RestoreButton from "./RestoreButton";
 
