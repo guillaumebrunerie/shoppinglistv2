@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "convex/react";
 
-import { type Id } from "_generated/dataModel";
+import type { Id } from "_generated/dataModel";
 import { api } from "_generated/api";
 
 import { useTranslate } from "../translation";

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "convex/react";
 
 import { api } from "_generated/api";
-import { type Id } from "_generated/dataModel";
+import type { Id } from "_generated/dataModel";
 
 import { useTranslate } from "../translation";
 

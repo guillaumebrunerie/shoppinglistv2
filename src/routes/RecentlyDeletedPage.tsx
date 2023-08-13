@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "convex/react";
 
-import { type Id } from "_generated/dataModel";
+import type { Id } from "_generated/dataModel";
 import { api } from "_generated/api";
 
 import RecentlyDeletedList from "../components/RecentlyDeletedList";

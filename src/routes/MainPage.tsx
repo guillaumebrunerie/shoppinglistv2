@@ -3,7 +3,7 @@ import { redirect, useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "convex/react";
 
 import { api } from "_generated/api";
-import { type Id } from "_generated/dataModel";
+import type { Id } from "_generated/dataModel";
 
 import ListOfLists from "../components/ListOfLists";
 import { addToKnownListIds, getKnownListIds, getLastListId, setLastListId } from "../localLists";

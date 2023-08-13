@@ -3,7 +3,7 @@ import { useMutation } from "convex/react";
 import type { DraggableProvided } from "@hello-pangea/dnd";
 
 import { api } from "_generated/api";
-import { type ConnectedItem } from "../../convex/lists";
+import type { ConnectedItem } from "../../convex/lists";
 
 import Row from "./Row";
 

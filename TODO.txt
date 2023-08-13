@@ -1,8 +1,8 @@
+- better UI for multiple lists
+- optimistic updates/loading for multiple lists
+- missing translations
 - use Prettier
+- better optimistic update for restoring
 - replace some uses of navigate by Link?
 - clean up CSS (use CSS modules?)
-- better UI for multiple lists
-- missing translations
-- better optimistic update for restoring
-- optimistic updates/loading for multiple lists
 - check that cron is working (after a few days)

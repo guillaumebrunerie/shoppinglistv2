@@ -4,7 +4,7 @@ import type { DraggableProvided } from "@hello-pangea/dnd";
 import { useQuery } from "convex/react";
 
 import { api } from "_generated/api";
-import { type Id } from "_generated/dataModel";
+import type { Id } from "_generated/dataModel";
 
 import DeleteButton from "./Delete";
 import EditButton from "./Edit";

@@ -2,7 +2,7 @@ import { useMutation } from "convex/react";
 import { DragDropContext, Draggable, Droppable, type DropResult } from "@hello-pangea/dnd";
 
 import { api } from "_generated/api";
-import { type Id } from "_generated/dataModel";
+import type { Id } from "_generated/dataModel";
 import type { ConnectedList } from "../../convex/lists";
 
 import AddSubList from "./AddSubList";

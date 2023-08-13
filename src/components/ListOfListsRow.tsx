@@ -3,7 +3,7 @@ import { useMutation } from "convex/react";
 import type { DraggableProvided } from "@hello-pangea/dnd";
 
 import { api } from "_generated/api";
-import { type Id } from "_generated/dataModel";
+import type { Id } from "_generated/dataModel";
 
 import { getKnownListIds, removeKnownListId } from "../localLists";
 import Row from "./Row";
