@@ -90,11 +90,11 @@ export const removeDeletedItemsOlderThan = internalMutation({
 				q.lt(q.field("deletedAt"), dateBefore),
 			),
 		).collect();
-		let n = 0;
-		await Promise.all(items.map(async () => {
+		const itemNames: string[] = [];
+		await Promise.all(items.map(async item => {
 			// await db.delete(item._id);
-			n++;
+			itemNames.push(item.value || "-");
 		}));
-		console.log(`would delete ${n} item${n == 1 ? "" : "s"}`);
+		console.log(`would delete items: ${itemNames.join(",")}`);
 	}
 })
