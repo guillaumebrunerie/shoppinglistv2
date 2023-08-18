@@ -81,12 +81,14 @@ input.edit {
 	border-radius: 0.1rem;
 	font-size: max(16px, 0.66em); /* Needs to be at least 16px for iOS */
 	font-weight: inherit;
-	&:focus::placeholder {
-		color: var(--light-grey);
-	}
-	&:focus {
-		outline-offset: 1px;
-		outline: 1.5px solid var(--background);
-	}
 	caret-color: var(--grey);
+}
+
+input.edit:focus::placeholder {
+	color: var(--light-grey);
+}
+
+input.edit:focus {
+	outline-offset: 1px;
+	outline: 1.5px solid var(--background);
 }

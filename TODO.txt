@@ -1,7 +1,5 @@
-- better UI for multiple lists
-- optimistic updates/loading for multiple lists
-- missing translations
 - better optimistic update for restoring
+- missing translations
 - use Prettier
 - replace some uses of navigate by Link?
 - clean up CSS (use CSS modules?)

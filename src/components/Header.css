@@ -27,7 +27,7 @@ span.name.isLoading {
 div.menuButton {
 	font-size: 30px;
 	position: absolute;
-	top: 10px;
+	top: 17px;
 	right: 0;
 	z-index: 1;
 	cursor: pointer;

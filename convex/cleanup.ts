@@ -1,7 +1,7 @@
 import { v } from "convex/values";
-import { internalMutation, mutation } from "./_generated/server";
+import { internalMutation } from "./_generated/server";
 
-export const removeOrphanLists = mutation({
+export const removeOrphanLists = internalMutation({
 	handler: async ({db}) => {
 		const lists = await db.query("lists").collect();
 		let n = 0;
@@ -19,7 +19,7 @@ export const removeOrphanLists = mutation({
 	},
 });
 
-export const removeEmptyRootLists = mutation({
+export const removeEmptyRootLists = internalMutation({
 	handler: async ({db}) => {
 		const lists = await db.query("lists").collect();
 		let n = 0;
@@ -33,7 +33,7 @@ export const removeEmptyRootLists = mutation({
 	},
 });
 
-export const removeListsWithDefaultName = mutation({
+export const removeListsWithDefaultName = internalMutation({
 	handler: async ({db}) => {
 		const lists = await db.query("lists").collect();
 		let n = 0;
@@ -47,7 +47,7 @@ export const removeListsWithDefaultName = mutation({
 	},
 });
 
-export const removeOrphanItems = mutation({
+export const removeOrphanItems = internalMutation({
 	handler: async ({db}) => {
 		const items = await db.query("items").collect();
 		let n = 0;
@@ -62,7 +62,7 @@ export const removeOrphanItems = mutation({
 	},
 });
 
-export const removeListItemsWithOrphanList = mutation({
+export const removeListItemsWithOrphanList = internalMutation({
 	handler: async ({db}) => {
 		const items = await db.query("items").collect();
 		let n = 0;

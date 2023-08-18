@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useContext, useState, type ReactNode, createContext } from "react";
 
 export const supportedLanguages = ["fr", "en", "ru"] as const;
 export type Lang = typeof supportedLanguages[number];
@@ -44,6 +44,11 @@ const translations = {
 		en: "Share",
 		ru: "Share", // TODO
 	},
+	createOrJoin: {
+		fr: "Créer / rejoindre une liste",
+		en: "Create / join a list",
+		ru: "Create / join a list", // TODO
+	},
 	locale: {
 		fr: "fr-FR",
 		en: "en-US",
@@ -64,10 +69,10 @@ type TranslationKey = keyof (typeof translations)
 
 export const flag = (lang: Lang) => translations.flag[lang];
 
-const context = React.createContext<[Lang, (l: Lang) => void]>(["fr", () => {}]);
+const context = createContext<[Lang, (l: Lang) => void]>(["fr", () => {}]);
 
 type ProviderProps = {
-	children: React.ReactNode;
+	children: ReactNode;
 };
 
 const getLanguage = (): Lang => {
@@ -79,12 +84,12 @@ const getLanguage = (): Lang => {
 };
 
 export const LangProvider = ({ children }: ProviderProps) => {
-	const langState = React.useState(getLanguage());
+	const langState = useState(getLanguage());
 	return <context.Provider value={langState}>{children}</context.Provider>;
 };
 
 export const useTranslate = () => {
-	const [lang] = React.useContext(context);
+	const [lang] = useContext(context);
 	return {
 		lang,
 		t: (key: TranslationKey): string => translations[key][lang],
@@ -92,7 +97,7 @@ export const useTranslate = () => {
 };
 
 export const useSetLanguage = () => {
-	const [, setLanguage] = React.useContext(context);
+	const [, setLanguage] = useContext(context);
 	return (lang: Lang) => {
 		setLanguage(lang);
 		localStorage.setItem("lang", lang);

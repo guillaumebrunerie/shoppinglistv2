@@ -35,7 +35,9 @@ export const setKnownListIds = (listIds: Id<"lists">[]) => {
 
 export const addToKnownListIds = (listId: Id<"lists">) => {
 	const listIds = getKnownListIds();
-	setKnownListIds([...listIds, listId]);
+	if (!listIds.includes(listId)) {
+		setKnownListIds([...listIds, listId]);
+	}
 };
 
 export const removeKnownListId = (listId: Id<"lists">) => {

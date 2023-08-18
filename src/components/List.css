@@ -3,6 +3,10 @@ main {
 	height: 100vh;
 }
 
+main.listOfLists ul li {
+	margin: 0.25rem 0;
+}
+
 ul {
 	display: flex;
 	flex-direction: column;

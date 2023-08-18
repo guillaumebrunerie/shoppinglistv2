@@ -1,20 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import type { DraggableProvided } from "@hello-pangea/dnd";
 
 import { api } from "_generated/api";
 import type { Id } from "_generated/dataModel";
 
-import { getKnownListIds, removeKnownListId } from "../localLists";
+import { removeKnownListId } from "../localLists";
 import Row from "./Row";
 
 type Item = {
 	childListId: Id<"lists">,
-	value: string,
 	isCompleted: false,
 };
 
-const ListOfListsRow = ({item, provided, isDragging}: {item: Item, provided: DraggableProvided, isDragging: boolean}) => {
+type ListOfListsRowProps = {
+	item: Item,
+	provided: DraggableProvided,
+	isDragging: boolean,
+};
+
+const ListOfListsRow = ({item, provided, isDragging}: ListOfListsRowProps) => {
 	const navigate = useNavigate();
 
 	const handleClick = () => {
@@ -25,15 +30,14 @@ const ListOfListsRow = ({item, provided, isDragging}: {item: Item, provided: Dra
 
 	const renameList = useMutation(api.lists.rename)
 		.withOptimisticUpdate((localStore, {listId, name}) => {
-			const listIds = getKnownListIds();
-			const names = localStore.getQuery(api.lists.getNames, {listIds});
-			if (names) {
-				localStore.setQuery(api.lists.getNames, {listIds}, {
-					...names,
-					[listId]: name,
+			const list = localStore.getQuery(api.lists.get, {listId});
+			if (list) {
+				localStore.setQuery(api.lists.get, {listId}, {
+					...list,
+					name,
 				});
 			}
-		})
+		});
 
 	const handleEdit = (name: string) => {
 		if (item.childListId) {
@@ -47,12 +51,17 @@ const ListOfListsRow = ({item, provided, isDragging}: {item: Item, provided: Dra
 		}
 	};
 
+	const name = useQuery(api.lists.get, {listId: item.childListId})?.name;
+	if (!name) {
+		return null;
+	}
+
 	return (
 		<Row
 			onClick={handleClick}
 			onEdit={handleEdit}
 			onDelete={handleDelete}
-			item={item}
+			item={{...item, value: name}}
 			provided={provided}
 			isDragging={isDragging}
 		/>

@@ -5,11 +5,13 @@ import type { Id } from "_generated/dataModel";
 import ListOfListsRow from "./ListOfListsRow";
 import { useTranslate } from "../translation";
 import { reorderKnownListIds } from "../localLists";
+import CreateOrJoinListOfLists from "./CreateOrJoinListOfLists";
+import MenuButton from "./MenuButton";
+import LanguagePicker from "./LanguagePicker";
 
 type List = {
 	items: {
 		childListId: Id<"lists">,
-		value: string,
 		isCompleted: false,
 	}[],
 };
@@ -26,11 +28,14 @@ const ListOfLists = ({list}: {list: List}) => {
 
 	return (
 		<DragDropContext onDragEnd={handleDragEnd}>
-			<main>
+			<main className="listOfLists">
 				<div className="header">
 					<span className="name">
 						{t("allMyLists")}
 					</span>
+					<MenuButton>
+						{closeMenu => <LanguagePicker closeMenu={closeMenu}/>}
+					</MenuButton>
 				</div>
 				<Droppable droppableId="listOfLists">
 					{provided => (
@@ -50,6 +55,7 @@ const ListOfLists = ({list}: {list: List}) => {
 						</ul>
 					)}
 				</Droppable>
+				<CreateOrJoinListOfLists/>
 			</main>
 		</DragDropContext>
 	);

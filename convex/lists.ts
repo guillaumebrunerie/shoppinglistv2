@@ -94,25 +94,6 @@ export const getRecentlyDeleted = query({
 	},
 });
 
-export const getNames = query({
-	args: {listIds: v.array(v.string())},
-	handler: async ({db}, {listIds}) => {
-		const result: {[Key in Id<"lists">]?: string} = {};
-		await Promise.all(listIds.map(async listId_ => {
-			const listId = db.normalizeId("lists", listId_);
-			if (!listId) {
-				return;
-			}
-			const list = await db.get(listId);
-			if (!list) {
-				return;
-			}
-			result[listId] = list.name;
-		}));
-		return result;
-	},
-});
-
 export const add = mutation({
 	args: {listId: v.id("lists"), name: v.string(), color: v.string()},
 	handler: async ({db}, {listId, name, color}) => {

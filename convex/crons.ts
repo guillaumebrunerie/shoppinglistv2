@@ -1,5 +1,5 @@
 import { cronJobs } from "convex/server";
-import { api, internal } from "./_generated/api";
+import { internal } from "./_generated/api";
 
 const crons = cronJobs();
 
@@ -13,13 +13,13 @@ crons.daily(
 crons.daily(
   "clean up orphan lists",
   { hourUTC: 2, minuteUTC: 5 },
-  api.cleanup.removeOrphanLists,
+  internal.cleanup.removeOrphanLists,
 );
 
 crons.daily(
   "clean up orphan items",
   { hourUTC: 2, minuteUTC: 10 },
-  api.cleanup.removeOrphanItems,
+  internal.cleanup.removeOrphanItems,
 );
 
 export default crons;

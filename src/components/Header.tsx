@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import classNames from "classnames";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 
 import { api } from "_generated/api";
 import type { Id } from "_generated/dataModel";
 
-import { type Lang, flag, supportedLanguages, useSetLanguage, useTranslate } from "../translation";
-import { unsetLastListId } from "../localLists";
-
 import "./Header.css";
+import MenuButton from "./MenuButton";
+import Menu from "./Menu";
 
 type List = {
 	_id: Id<"lists">,
@@ -17,9 +15,7 @@ type List = {
 	name: string,
 };
 
-const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
-	const {t, lang} = useTranslate();
-
+const Header = ({list}: {list: List}) => {
 	const {_id: listId} = list;
 
 	const [isEditing, setIsEditing] = useState(false);
@@ -41,84 +37,26 @@ const Header = ({list, doClean}: {list: List, doClean: () => void}) => {
 		if (name) {
 			renameList({listId, name});
 		}
-	}
+	};
 
 	const handleBlur = (event: React.FocusEvent) => {
 		doRename((event.target as HTMLInputElement).value.trim());
-	}
+	};
 
 	const handleKeyUp = (event: React.KeyboardEvent) => {
 		if (event.key == "Enter") {
 			doRename((event.target as HTMLInputElement).value.trim());
 		}
-	}
-
-	const [isOpen, setIsOpen] = useState(false);
-	const openMenu = () => setIsOpen(true);
-	const closeMenu = () => setIsOpen(false);
-
-	const handleClean = () => {
-		closeMenu();
-		doClean();
-	}
-
-	const navigate = useNavigate();
-
-	const handleBackToAllLists = () => {
-		unsetLastListId();
-		navigate("/");
-	}
-
-	const setLanguage = useSetLanguage();
-
-	const handleSetLanguage = (lang: Lang) => () => {
-		setLanguage(lang);
-		closeMenu();
-	}
-
-	const handleCopyListId = async () => {
-		await navigator.clipboard.writeText(listId);
-		closeMenu();
-	}
-
-	useQuery(api.lists.getRecentlyDeleted, {listId});
+	};
 
 	return (
 		<div className="header">
 			<span className={classNames({name: true, isLoading: list.isLoading})}>
 				{isEditing ? <input autoFocus enterKeyHint="done" defaultValue={list.name} onKeyUp={handleKeyUp} onBlur={handleBlur}/> : <span onClick={() => setIsEditing(true)}>{list.name}</span>}
 			</span>
-			<div className="menuButton">
-				<span onClick={openMenu}>{"\u2807"}</span>
-				{isOpen && (
-					<div className="menu">
-						<div className="menuItem" onClick={handleBackToAllLists}>
-							{t("backToAllLists")}
-						</div>
-						<div className="menuItem" onClick={handleClean}>
-							{t("clearList")}
-						</div>
-						<div className="menuItem">
-							<Link to="recentlyDeleted">{t("recentlyDeleted")}</Link>
-						</div>
-						<div className="menuItem">
-							<span onClick={handleCopyListId}>{t("copyListId")}</span>
-						</div>
-						<div className="flagMenuItem">
-							{supportedLanguages.map(thisLang => (
-								<div
-									className={classNames({flag: true, isSelected: thisLang == lang})}
-									key={thisLang}
-									onClick={handleSetLanguage(thisLang)}
-								>
-									{flag(thisLang)}
-								</div>
-							))}
-						</div>
-					</div>
-				)}
-				{isOpen && <div className="backdrop" onClick={closeMenu}/>}
-			</div>
+			<MenuButton>
+				{closeMenu => <Menu listId={listId} closeMenu={closeMenu}/>}
+			</MenuButton>
 		</div>
 	);
 };

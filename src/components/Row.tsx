@@ -1,15 +1,14 @@
 import { useState } from "react";
 import classNames from "classnames";
 import type { DraggableProvided } from "@hello-pangea/dnd";
-import { useQuery } from "convex/react";
 
-import { api } from "_generated/api";
 import type { Id } from "_generated/dataModel";
 
 import DeleteButton from "./Delete";
 import EditButton from "./Edit";
 
 import "./Row.css";
+import ListQuery from "./ListQuery";
 
 export type Item = {
 	childListId?: Id<"lists">,
@@ -17,11 +16,6 @@ export type Item = {
 	value: string,
 	isLoading?: boolean,
 	deletedAt?: number,
-};
-
-const ChildListQuery = ({listId}: {listId: Id<"lists">}) => {
-	useQuery(api.lists.get, {listId});
-	return null;
 };
 
 type RowProps = {
@@ -73,7 +67,7 @@ const Row = ({item, provided, isDragging, onClick, onEdit, onDelete}: RowProps) 
 			})}
 			onPointerDown={() => isEditing || (document.activeElement as HTMLElement | null)?.blur()}
 		>
-			{childListId && <ChildListQuery listId={childListId}/>}
+			{childListId && <ListQuery listId={childListId}/>}
 			<span className={classNames({itemText: true, isLoading, isCompleted})} onClick={onClick}>
 				{isEditing
 					? <input className="edit" autoFocus enterKeyHint="done" defaultValue={value} onKeyUp={handleKeyUp} onBlur={handleBlur}/>
