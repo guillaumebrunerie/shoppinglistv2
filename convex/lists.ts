@@ -71,7 +71,7 @@ export const getRecentlyDeleted = query({
 	handler: async ({db}, {listId}): Promise<ConnectedList | null> => {
 		const list = await db.get(listId);
 		if (!list) {
-			return list;
+			return null;
 		}
 		const items = (await Promise.all(list.itemIds.map(async itemId => {
 			const item = await db.get(itemId);
@@ -84,6 +84,7 @@ export const getRecentlyDeleted = query({
 				value: await getItemValue(db, item),
 			}];
 		}))).flat();
+		items.sort((a, b) => a.deletedAt! - b.deletedAt!);
 		const parentListId = list.parentId && (await db.get(list.parentId))?.listId || null;
 		return {
 			...list,
