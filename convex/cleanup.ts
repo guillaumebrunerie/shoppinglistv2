@@ -92,9 +92,9 @@ export const removeDeletedItemsOlderThan = internalMutation({
 		).collect();
 		const itemNames: string[] = [];
 		await Promise.all(items.map(async item => {
-			// await db.delete(item._id);
+			await db.delete(item._id);
 			itemNames.push(item.value || "-");
 		}));
-		console.log(`would delete items: ${itemNames.join(",")}`);
+		console.log(`Deleted ${itemNames.length} items: ${itemNames.join(", ")}`);
 	}
 })

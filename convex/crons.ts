@@ -7,7 +7,7 @@ crons.daily(
   "clean up old deleted tasks",
   { hourUTC: 2, minuteUTC: 0 },
   internal.cleanup.removeDeletedItemsOlderThan,
-  { days: 7 },
+  { days: 30 },
 );
 
 crons.daily(
