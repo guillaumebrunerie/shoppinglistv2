@@ -84,7 +84,7 @@ export const getRecentlyDeleted = query({
 				value: await getItemValue(db, item),
 			}];
 		}))).flat();
-		items.sort((a, b) => a.deletedAt! - b.deletedAt!);
+		items.sort((a, b) => b.deletedAt! - a.deletedAt!);
 		const parentListId = list.parentId && (await db.get(list.parentId))?.listId || null;
 		return {
 			...list,
