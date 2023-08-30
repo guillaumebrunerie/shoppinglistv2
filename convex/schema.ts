@@ -8,7 +8,8 @@ export default defineSchema({
 		itemIds: v.array(v.id("items")),
 		parentId: v.optional(v.id("items")),
 		originalId: v.optional(v.string()),
-	}),
+		// sharingId: v.optional(v.string()),
+	}), // .index("by_sharingId", ["sharingId"])
 	items: defineTable({
 		deletedAt: v.optional(v.number()),
 		value: v.optional(v.string()),

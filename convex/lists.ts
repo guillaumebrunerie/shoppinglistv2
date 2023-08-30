@@ -135,7 +135,7 @@ export const clean = mutation({
 		}
 		await Promise.all(list.itemIds.map(async itemId => {
 			const item = await db.get(itemId);
-			if (item?.isCompleted) {
+			if (item?.isCompleted && !item.deletedAt) {
 				await db.patch(itemId, {deletedAt: Date.now()});
 			}
 		}));
