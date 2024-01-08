@@ -68,7 +68,7 @@ const Row = ({item, provided, isDragging, onClick, onEdit, onDelete}: RowProps) 
 			onPointerDown={() => isEditing || (document.activeElement as HTMLElement | null)?.blur()}
 		>
 			{childListId && <ListQuery listId={childListId}/>}
-			<span className={classNames({itemText: true, isLoading, isCompleted})} onClick={onClick}>
+			<span className={classNames({itemText: true, isLoading, isCompleted})} onClick={isEditing ? () => {} : onClick}>
 				{isEditing
 					? <input className="edit" autoFocus enterKeyHint="done" defaultValue={value} onKeyUp={handleKeyUp} onBlur={handleBlur}/>
 					: value
