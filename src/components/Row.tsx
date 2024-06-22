@@ -74,8 +74,8 @@ const Row = ({item, provided, isDragging, onClick, onEdit, onDelete}: RowProps) 
 					: value
 				}
 			</span>
-			<DeleteButton onClick={onDelete} isCompleted={isCompleted}/>
 			<EditButton onClick={startEdit} isCompleted={isCompleted}/>
+			<DeleteButton onClick={onDelete} isCompleted={isCompleted}/>
 		</li>
 	);
 };
